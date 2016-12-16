@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- We can define our UI using XAML or C#-->
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Todo2.Views.TodoListPage">
+    <!-- All views (buttons, labels, etc...) must be within a layout to define how they are aligned-->
+    <!-- StackLayout allows us to add views linearly-->
+    <StackLayout>
+        <!-- The x:Name property lets us reference components in our C# code-->
+        <!-- We will be defining the ItemsSource property in our corresponding C# file: TodoListPage.xaml.cs-->
+        <ListView x:Name="todoListView">
+            <!-- Define the template for each item in the listview-->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <!-- ContextActions property lets us define actions to do when we interact with an individual item in our list-->
+                        <!-- i.e. long press an item on Android, right click on Windows, swipe on iOS-->
+                        <ViewCell.ContextActions>
+                            <!-- When we interact with an individual item, we will have a MenuItem appear with the following properties-->
+                            <!-- The {Binding } syntax lets us reference our "BindingContext" in our XAML-->
+                            <!-- In this case the BindingContext is the Item object that our ViewCell is representing -->
+                            <!-- {Binding .} is a reference to the BindingContext itself (the Item object in this case), 
+                            but you can also reference its properties with {Binding Notes} or {Binding Title} in this case, since our Item class has these properties-->
+                            <MenuItem Text="Remove" Clicked="OnMenuRemoveItem" CommandParameter="{Binding .}"></MenuItem>
+                        </ViewCell.ContextActions>
+                        
+                        <!-- Each ViewCell will be composed of a StackLayout with a Label in it-->
+                        <StackLayout Padding="5, 0, 5, 0" VerticalOptions="Center">
+                            <!-- The label text will reference the Title property of an individual Item-->
+                            <Label Text="{Binding Title}" ></Label>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+    </StackLayout>
+
+</ContentPage>
